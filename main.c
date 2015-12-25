@@ -267,9 +267,6 @@ int main (void)
         MOT_PERIOD/2            // Start with 50% duty cycle
         );
 
-    //bankA_ptr->DIR.reg &= ~(1 << ENCODE_PHASEA_PIN);
-    //bankB_ptr->DIR.reg &= ~(1 << ENCODE_PHASEB_PIN);
-    //bankA_ptr->PINCFG[ENCODE_PHASEA_PIN].reg |= 1 << 2u;
 
     configure_encoder_eic();
     enable_encoder_eic();
@@ -656,7 +653,8 @@ void position_ctrl(void){
         (motor_cur_pos > user_input + error_margin)
     ){
                 // Move motor
-/*
+/*      // Attempt to automatically reset the PID controller
+        //  when any of the terms become unstable
         move_speed_prev = move_speed_prev - move_speed;
         if(
             move_speed_prev > move_speed_err_margin ||
@@ -715,7 +713,7 @@ void position_ctrl(void){
 }
 
 void speed_ctrl(void){
-/*
+/*      // Start of converting position PID to speed PID
     static const UINT8 STOP_SPEED = MOT_PERIOD/2;
 #ifdef USE_PID_CONTROLLER
     static const UINT8 error_margin = 100;
