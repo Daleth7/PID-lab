@@ -1,0 +1,7 @@
+ASF/
+config/
+Backup/
+backups/
+asf.h
+*exe
+main_copy_display_only.c
